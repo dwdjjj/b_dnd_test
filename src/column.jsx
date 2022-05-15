@@ -16,16 +16,21 @@ const Title = styled.h3`
 `;
 const TaskList = styled.div`
   padding: 8px;
+  transition: background-color 0.5s ease;
   background-color: ${(props) => (props.isDraggingOver ? "orange" : "white")};
   flex-grow: 1;
   min-height: 100px;
 `;
 
-export default function Column({ key, column, tasks }) {
+export default function Column({ key, column, tasks, isDropDisabled }) {
   return (
     <Container>
       <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
+      <Droppable
+        droppableId={column.id}
+        isDropDisabled={isDropDisabled}
+        // type={column.id === "column-2" ? "done" : "active"} // type으로 Droppable영역 비활성화 가능
+      >
         {(provided, snapshot) => (
           <TaskList
             {...provided.droppableProps}
